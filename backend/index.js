@@ -1,5 +1,6 @@
 const express = require('express');
-const mysql = require('mysql2'); // This line might not be necessary depending on how you use 'db'
+const mysql = require('mysql2');
+const session = require('express-session');
 const cors = require('cors');
 const db = require('./config/Database.js');
 const Users = require('./model/UserModel.js');
@@ -10,7 +11,12 @@ const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
-
+app.use(session({
+  secret: 'asd312gadaq3qfasdagggaw131', // Replace with a secure secret key
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false } // Set to true if using HTTPS
+}));
 
 async function startServer() {
   try {

@@ -23,11 +23,7 @@ const Users = db.define('users', {
     role: {
         type: DataTypes.ENUM('member', 'admin'), 
         defaultValue: 'member',
-    },
-    refresh_token: {
-        type: DataTypes.TEXT,
-        allowNull: true 
-    },
+    }
 }, {
     freezeTableName: true,
     timestamps: true
