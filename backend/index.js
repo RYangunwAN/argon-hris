@@ -12,10 +12,10 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use(session({
-  secret: 'asd312gadaq3qfasdagggaw131', // Replace with a secure secret key
+  secret: 'asd312gadaq3qfasdagggaw131', 
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false } // Set to true if using HTTPS
+  cookie: { secure: false } 
 }));
 
 async function startServer() {

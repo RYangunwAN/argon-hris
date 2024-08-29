@@ -23,6 +23,11 @@ const Users = db.define('users', {
     role: {
         type: DataTypes.ENUM('member', 'admin'), 
         defaultValue: 'member',
+    },
+    sessionId: {
+        type: DataTypes.STRING,
+        allowNull: true,
+        unique: true
     }
 }, {
     freezeTableName: true,
