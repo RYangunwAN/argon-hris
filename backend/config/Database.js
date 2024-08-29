@@ -1,11 +1,8 @@
+const Sequelize = require('sequelize');
 
-const mysql = require('mysql2/promise');
-require('dotenv').config();
-
-const pool = mysql.createPool({
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    database: process.env.DB_NAME,
+const db = new Sequelize('argon_hris', 'root', '', {
+  host: 'localhost',
+  dialect: 'mysql'
 });
 
-module.exports = pool;
+module.exports = db;
