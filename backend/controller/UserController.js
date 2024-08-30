@@ -13,14 +13,14 @@ const getUser = async(req, res) => {
 const registerUser = async(req, res) => {
     const { name, email, password, confirmPassword }  = req.body;
     if(password !== confirmPassword) {
-        return res.status(400).json({msg: "Password tidak sama"});
+        return res.status(400).json({msg: "Password is not identical"});
     }
 
     try {
         const existingUser = await Users.findOne({ where: { email: email } });
 
         if (existingUser) {
-            return res.status(400).json({ msg: "Email sudah digunakan" });
+            return res.status(400).json({ msg: "Email already in use" });
         }
 
         await Users.create({
@@ -28,7 +28,7 @@ const registerUser = async(req, res) => {
             email: email,
             password: password,
         });
-        res.json({msg: "Register Berhasil"})
+        res.json({msg: "Register successful"})
     } catch (error) {
         console.log(error);
     }
@@ -52,18 +52,18 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ msg: "User already logged in from another session" });
         }
 
-        const sessionId = generateSessionId(); // Generate a new session ID
-        await user.update({ sessionId }); // Update user with new sessionId
+        const sessionId = generateSessionId(); 
+        await user.update({ sessionId }); 
 
         req.session.userId = user.id;
         req.session.role = user.role;
-        req.session.sessionId = sessionId; // Set the session ID in the session object
+        req.session.sessionId = sessionId; 
 
         console.log('Session data:', req.session);
 
         res.json({ 
             msg: 'Login successful',
-            sessionId: sessionId // Use the same sessionId
+            sessionId: sessionId 
         });
     } catch (error) {
         console.error(error);

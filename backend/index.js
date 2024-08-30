@@ -4,6 +4,7 @@ const session = require('express-session');
 const cors = require('cors');
 const db = require('./config/Database.js');
 const Users = require('./model/UserModel.js');
+const Attendances = require('./model/AttendanceModel.js');
 const router = require('./route/Route.js')
  
 const app = express();
@@ -25,6 +26,9 @@ async function startServer() {
 
     await Users.sync();
     console.log('User model synchronized...');
+
+    await Attendances.sync();
+    console.log('Attendance model synchronized...');
 
   } catch (error) {
     console.error('Error:', error.message);
