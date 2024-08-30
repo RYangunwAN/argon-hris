@@ -7,6 +7,6 @@ router.get('/users', getUser);
 router.post('/users', registerUser);
 router.post('/login', loginUser);
 router.get('/checkSession', checkSession);
-router.get('/logout', logoutUser);
+router.post('/logout', logoutUser);
 
 module.exports = router

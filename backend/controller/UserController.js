@@ -72,7 +72,7 @@ const loginUser = async (req, res) => {
 };
 
 const checkSession = async (req, res) => {
-    const { sessionId } = req.body;
+    const { sessionId } = req.query;
 
     if (!sessionId) {
         return res.status(400).json({ msg: 'Session ID is required' });
@@ -87,6 +87,8 @@ const checkSession = async (req, res) => {
 
         res.json({
             userId: user.id,
+            name: user.name,
+            email: user.email,
             role: user.role,
             sessionId: user.sessionId
         });
@@ -95,8 +97,6 @@ const checkSession = async (req, res) => {
         res.status(500).json({ msg: 'Server error' });
     }
 };
-
-
 
 
 const logoutUser = async (req, res) => {

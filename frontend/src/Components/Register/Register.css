@@ -1,21 +1,12 @@
-.LoginContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    margin: 0; /* Ensure there's no margin around the body */
-}
-
-.rowWrapper {
+.rowRegisterWrapper {
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    align-items: stretch; 
-    min-width: 840px;
+    align-items: center;
     max-height: fit-content;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
+
 
 .wrapper {
     width: 420px;
@@ -23,21 +14,22 @@
     background: white;
     color: black;
     border-radius: 0 20px 20px 0;
-    padding: 30px 40px;
+    padding:  30px 40px;
 }
 
-.logoWrapper {
+.logoRegisterWrapper {
     display: flex;
     justify-content: center;
     align-items: center;
+    width: 420px;
+    min-height: 556px;
     background: #004da9;
     color: black;
     border-radius: 20px 0 0 20px;
-    padding: 30px 40px;
-    flex: 1; /* Allow .logoWrapper to grow and fill available space */
+    padding:  30px 40px;
 }
 
-.logoWrapper img {
+.logoRegisterWrapper img{
     width: 300px;
 }
 
@@ -104,18 +96,4 @@
 
 .register a:hover {
     text-decoration: underline;
-}
-
-.error {
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: red;
-}
-
-.success {
-    text-align: center;
-    margin-bottom: 8px;
-    font-size: 14px;
-    color: green;
 }
