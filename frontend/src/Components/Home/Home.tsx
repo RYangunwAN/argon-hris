@@ -93,10 +93,13 @@ const Home = () =>{
                 </div>
                 <div className="bottomMainDisplay">
                     <div className="attendanceTopMenu">
-                        <p>Attendance</p>
+                        <p>ATTENDANCE</p>
                         <button className="addAttendanceBtn">
-                            Add Attendance
+                            Add
                         </button>
+                    </div>
+                    <div className="attendanceTableContainer">
+                        
                     </div>
                 </div>
             </div>
