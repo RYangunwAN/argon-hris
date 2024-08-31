@@ -29,7 +29,8 @@ async function startServer() {
 
     await Attendances.sync();
     console.log('Attendance model synchronized...');
-
+    
+    await checkAndCreateAdmin();
   } catch (error) {
     console.error('Error:', error.message);
     return;
@@ -39,6 +40,28 @@ async function startServer() {
     console.log(`Server is running on http://localhost:${port}`);
   });
 }
+
+const checkAndCreateAdmin = async () => {
+  try {
+      const adminEmail = 'admin@example.com';
+      const existingAdmin = await Users.findOne({ where: { email: adminEmail } });
+
+      if (!existingAdmin) {
+          await Users.create({
+              name: 'Admin',
+              email: adminEmail,
+              password: 'admin1234', 
+              role: 'admin'
+          });
+          console.log('Admin user created.');
+      } else {
+          console.log('Admin user already exists.');
+      }
+  } catch (error) {
+      console.error('Error checking/creating admin user:', error.message);
+  }
+};
+
 
 app.use(router);
 
