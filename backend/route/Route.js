@@ -7,7 +7,7 @@ const router = express.Router();
 
 // user data api
 router.get('/users', getUser);
-router.post('/users', registerUser);
+router.post('/register', registerUser);
 router.post('/login', loginUser);
 router.get('/checkSession', checkSession);
 router.post('/logout', logoutUser);
