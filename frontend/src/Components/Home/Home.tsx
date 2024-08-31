@@ -14,6 +14,11 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogTitle from '@mui/material/DialogTitle';
 import Button from '@mui/material/Button';
+import medelaLogo from '../Assets/logo-medela-potentia-white.png'
+import { FaCalendar } from "react-icons/fa";
+import { MdAdminPanelSettings } from "react-icons/md";
+import { useLocation } from 'react-router-dom';
+
 
 interface AttendanceRow {
     id: number; 
@@ -25,8 +30,11 @@ interface AttendanceRow {
 
 const Home = () => {
     const navigate = useNavigate();
+
     const [userName, setUsername] = useState<string>('');
     const [userId, setUserId] = useState<string>('');
+    const [userRole, setUserRole] = useState<string>('');
+
     const [attendanceRows, setAttendanceRows] = useState<AttendanceRow[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [selectedRow, setSelectedRow] = useState<AttendanceRow | null>(null);
@@ -53,6 +61,7 @@ const Home = () => {
                 if (response.ok) {
                     setUsername(data.name);
                     setUserId(data.userId);
+                    setUserRole(data.role);
                 } else {
                     console.error('Error fetching user data:', data.msg);
                 }
@@ -66,7 +75,6 @@ const Home = () => {
 
     useEffect(() => {
         const getAttendanceData = async () => {
-            console.log(userId);
             
             if (!userId) {
                 console.error('No userId found');
@@ -82,7 +90,6 @@ const Home = () => {
                 });
     
                 const responseText = await response.text();
-                console.log('Response text:', responseText);
     
                 if (response.ok) {
                     try {
@@ -151,10 +158,37 @@ const Home = () => {
         navigate('/attendance'); 
     };
 
+    const handleAttendanceClick = () => {
+        navigate('/Home');
+    }
+
+    const handleAdminClick = () => {
+        navigate('/Admin');
+    }
+
+    const location = useLocation();
+
+    const isOnSpecificPage = location.pathname === '/home';
+
+    const homeButtonStyle = {
+        backgroundColor: isOnSpecificPage ? 'transparent' : '#ffffff',
+        color: isOnSpecificPage ? '#ffffff' : 'black',
+    };
+
     return (
         <div className="homeColWrapper">
             <div className="homeSidebar">
-                {/* Sidebar content */}
+                <img src={medelaLogo} alt="" className="medelaLogo" />
+                <button className="attendancePageBtn" onClick={handleAttendanceClick} style={homeButtonStyle}>
+                    <FaCalendar className='icon' size={20}/>
+                    ATTENDANCE
+                </button>
+                {userRole === 'admin' && (
+                    <button className="adminPageBtn" onClick={handleAdminClick}>
+                        <MdAdminPanelSettings className='icon' size={22}/>
+                        ADMIN PAGE
+                    </button>
+                )}
             </div>
             <div className="homeMainDisplay">
                 <div className="topMainDisplay">

@@ -1,5 +1,5 @@
 const express = require('express');
-const { getUser, registerUser, loginUser, checkSession, logoutUser } = require('../controller/UserController.js')
+const { getUser, registerUser, loginUser, checkSession, logoutUser, updateUser } = require('../controller/UserController.js')
 const { createAttendance, getAttendanceByUser, updateAttendance, deleteAttendance } = require('../controller/AttendanceController.js');
 const multer = require('multer');
 const upload = multer({ storage: multer.memoryStorage() });
@@ -11,6 +11,7 @@ router.post('/users', registerUser);
 router.post('/login', loginUser);
 router.get('/checkSession', checkSession);
 router.post('/logout', logoutUser);
+router.put('/users/:id', updateUser);
 
 // attendance data api
 router.post('/attendance', upload.single('photo'), createAttendance);

@@ -1,9 +1,9 @@
-.LoginContainer {
+.loginContainer {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    margin: 0; /* Ensure there's no margin around the body */
+    margin: 0;
 }
 
 .rowWrapper {

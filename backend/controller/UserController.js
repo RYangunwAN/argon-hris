@@ -127,6 +127,28 @@ const logoutUser = async (req, res) => {
     }
 };
 
+const updateUser = async (req, res) => {
+    const { id } = req.params;
+    const { name, email, role } = req.body;
 
+    if (!id) {
+        return res.status(400).json({ msg: 'User ID is required' });
+    }
 
-module.exports = { getUser, registerUser, loginUser, checkSession, logoutUser };
+    try {
+        const user = await Users.findByPk(id);
+
+        if (!user) {
+            return res.status(404).json({ msg: 'User not found' });
+        }
+
+        await user.update({ name, email, role });
+
+        res.json({ msg: 'User updated successfully' });
+    } catch (error) {
+        console.error('Error updating user:', error);
+        res.status(500).json({ msg: 'Server error' });
+    }
+};
+
+module.exports = { getUser, registerUser, loginUser, checkSession, logoutUser, updateUser };

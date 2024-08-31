@@ -6,6 +6,7 @@ import Login from './Components/Login/Login';
 import Register from './Components/Register/Register';
 import Home from './Components/Home/Home';
 import AddAttendance from './Components/Attendance/Attendance';
+import Admin from './Components/Admin/Admin';
 import { Add } from '@mui/icons-material';
 
 function App() {
@@ -17,6 +18,7 @@ function App() {
             <Route path="/register" element={<Register />} />
             <Route path="/home" element={<Home />} />
             <Route path="/attendance" element={<AddAttendance />} />
+            <Route path="/admin" element={<Admin />} />
         </Routes>
     </Router>
   );

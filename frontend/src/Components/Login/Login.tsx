@@ -46,7 +46,7 @@ const Login = () => {
     };
 
     return (
-        <div className="LoginContainer">
+        <div className="loginContainer">
             <div className="rowWrapper">
                 <div className="logoWrapper">
                     <div>

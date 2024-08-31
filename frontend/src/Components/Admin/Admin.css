@@ -1,0 +1,115 @@
+.adminColWrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    background-color: #004da9;
+  }
+  
+  .adminSidebar {
+    width: 250px; 
+    height: 100vh; 
+    background: #004da9; 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px;
+  }
+  
+  .adminSidebar img {
+    width: 180px;
+    margin-bottom: 72px;
+  }
+  
+  .adminSidebar button{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 42px;
+    margin-bottom: 24px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: left;
+    padding-left: 24px;
+    color: white;
+    background: transparent;
+  }
+  
+  .adminSidebar .icon {
+    position: relative;
+    margin-right: 8px;
+    top: -2px;
+  }
+  
+  .adminMainDisplay {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    background-color: white;
+  }
+  
+  .topMainDisplay {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    height: 120px;
+    padding: 24px;
+  }
+  
+  .usernameDisplay {
+    font-size: 32px;
+    font-weight: 600;
+  }
+  
+  .logoutDisplay {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 200px;
+  }
+  
+  .logout {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 170px;
+    height: 60px;
+    border-radius: 50px;
+    border: 2px solid rgb(175, 175, 175);
+    background: white;
+    color: black;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+  
+  .logout .icon {
+    margin-right: 8px;
+  }
+  
+  .bottomMainDisplay {
+    margin-top: 40px;
+    padding: 24px;
+    height: 100vh;
+  }
+  
+  .adminTopMenu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 24px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    margin-bottom: 32px;
+  }
+  
+  .adminTopMenu p {
+    font-size: 24px;
+    font-weight: 600;
+  }
+  
+  

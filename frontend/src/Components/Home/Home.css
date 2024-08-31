@@ -6,9 +6,41 @@
 }
 
 .homeSidebar {
-  width: 250px; /* Set a fixed width for the sidebar */
-  height: 100vh; /* Full height of the viewport */
-  background: #004da9; /* Slightly darker shade for sidebar for contrast */
+  width: 250px; 
+  height: 100vh; 
+  background: #004da9; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 24px;
+}
+
+.homeSidebar img {
+  width: 180px;
+  margin-bottom: 72px;
+}
+
+.homeSidebar button{
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 42px;
+  margin-bottom: 24px;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: left;
+  padding-left: 24px;
+  color: white;
+  background: transparent;
+}
+
+.homeSidebar .icon {
+  position: relative;
+  margin-right: 8px;
+  top: -2px;
 }
 
 .homeMainDisplay {
