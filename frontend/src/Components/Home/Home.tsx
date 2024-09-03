@@ -177,7 +177,7 @@ const Home = () => {
     const handleSaveCurrentTime = async () => {
         const currentTime = new Date().toLocaleTimeString('en-US', { 
             timeZone: 'Asia/Jakarta', 
-            hour12: false, // Use 24-hour format
+            hour12: false,
             hour: '2-digit', 
             minute: '2-digit',
             second: '2-digit'
