@@ -46,7 +46,7 @@ const checkAndCreateAdmin = async () => {
   try {
       const adminEmail = 'admin@example.com';
       const existingAdmin = await Users.findOne({ where: { email: adminEmail } });
-      const salt = await bcrypt.genSalt(10); // Generate a salt with 10 rounds
+      const salt = await bcrypt.genSalt(10); 
       const hashedPassword = await bcrypt.hash('admin1234', salt);
 
       if (!existingAdmin) {
