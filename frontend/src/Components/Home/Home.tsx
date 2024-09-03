@@ -319,7 +319,7 @@ const Home = () => {
                     <Button
                         onClick={handleSaveCurrentTime}
                         color="primary"
-                        disabled={isCheckOutDisabled} // Disable button based on state
+                        disabled={isCheckOutDisabled}
                     >
                         Check-Out
                     </Button>
