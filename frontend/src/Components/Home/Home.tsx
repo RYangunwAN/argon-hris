@@ -19,7 +19,6 @@ import { FaCalendar } from "react-icons/fa";
 import { MdAdminPanelSettings } from "react-icons/md";
 import { useLocation } from 'react-router-dom';
 
-
 interface AttendanceRow {
     id: number; 
     date: string;
@@ -38,6 +37,8 @@ const Home = () => {
     const [attendanceRows, setAttendanceRows] = useState<AttendanceRow[]>([]);
     const [open, setOpen] = useState<boolean>(false);
     const [selectedRow, setSelectedRow] = useState<AttendanceRow | null>(null);
+
+    const [isCheckOutDisabled, setIsCheckOutDisabled] = useState<boolean>(false);
 
     useEffect(() => {
         const getUserData = async () => {
@@ -75,7 +76,6 @@ const Home = () => {
 
     useEffect(() => {
         const getAttendanceData = async () => {
-            
             if (!userId) {
                 console.error('No userId found');
                 return;
@@ -165,6 +165,56 @@ const Home = () => {
     const handleAdminClick = () => {
         navigate('/Admin');
     }
+
+    useEffect(() => {
+        const now = new Date();
+        const cutoffTime = new Date();
+        cutoffTime.setHours(15, 0, 0);
+
+        setIsCheckOutDisabled(now < cutoffTime);
+    }, []); 
+
+    const handleSaveCurrentTime = async () => {
+        const currentTime = new Date().toLocaleTimeString('en-US', { 
+            timeZone: 'Asia/Jakarta', 
+            hour12: false, // Use 24-hour format
+            hour: '2-digit', 
+            minute: '2-digit',
+            second: '2-digit'
+        });
+        
+        if (selectedRow && selectedRow.id) {
+            try {
+                const response = await fetch(`http://localhost:5000/attendance${selectedRow.id}`, {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ checkOut: currentTime }),
+                });
+    
+                const data = await response.json();
+    
+                if (response.ok) {
+                    setAttendanceRows(prevRows => 
+                        prevRows.map(row => 
+                            row.id === selectedRow.id 
+                                ? { ...row, checkOut: currentTime } 
+                                : row
+                        )
+                    );
+                    alert('Check-out time updated!');
+                    console.log('Check-out time updated successfully:', data);
+                } else {
+                    console.error('Error updating check-out time:', data.msg);
+                }
+            } catch (error) {
+                console.error('Error saving current time:', error);
+            }
+        } else {
+            console.error('No attendance record selected');
+        }
+    };
 
     const location = useLocation();
 
@@ -266,6 +316,13 @@ const Home = () => {
                     )}
                 </DialogContent>
                 <DialogActions>
+                    <Button
+                        onClick={handleSaveCurrentTime}
+                        color="primary"
+                        disabled={isCheckOutDisabled} // Disable button based on state
+                    >
+                        Check-Out
+                    </Button>
                     <Button onClick={handleClose}>Close</Button>
                 </DialogActions>
             </Dialog>

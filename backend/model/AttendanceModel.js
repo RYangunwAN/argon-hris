@@ -14,7 +14,7 @@ const Attendance = db.define('attendance', {
     },
     checkOut: {
         type: DataTypes.TIME,
-        allowNull: false,
+        allowNull: true,
     },
     photo: {
         type: DataTypes.BLOB('long'), 

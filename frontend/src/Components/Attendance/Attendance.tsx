@@ -8,7 +8,6 @@ const AddAttendance = () => {
   const navigate = useNavigate();
   const [date, setDate] = useState<string>('');
   const [checkIn, setCheckIn] = useState<string>('');
-  const [checkOut, setCheckOut] = useState<string>('');
   const [photo, setPhoto] = useState<string | null>(null);
   const [isCameraOpen, setIsCameraOpen] = useState<boolean>(false);
   const [videoDevices, setVideoDevices] = useState<MediaDeviceInfo[]>([]);
@@ -68,7 +67,7 @@ const AddAttendance = () => {
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    if (!date || !checkIn || !checkOut || !photo || userId === null) {
+    if (!date || !checkIn || !photo || userId === null) {
       alert('All fields, including the photo and user ID, are required.');
       return;
     }
@@ -76,7 +75,6 @@ const AddAttendance = () => {
     const formData = new FormData();
     formData.append('date', date);
     formData.append('checkIn', checkIn);
-    formData.append('checkOut', checkOut);
     formData.append('userId', userId.toString());
     if (photo) {
       const blob = await fetch(photo).then(r => r.blob());
@@ -95,7 +93,6 @@ const AddAttendance = () => {
 
         setDate('');
         setCheckIn('');
-        setCheckOut('');
         setPhoto(null);
         setUserId(null);
 
@@ -137,7 +134,7 @@ const AddAttendance = () => {
                 required
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={12}>
               <TextField
                 fullWidth
                 label="Check-in Time"
@@ -145,18 +142,6 @@ const AddAttendance = () => {
                 InputLabelProps={{ shrink: true }}
                 value={checkIn}
                 onChange={(e) => setCheckIn(e.target.value)}
-                InputProps={{ style: { backgroundColor: 'white' } }}
-                required
-              />
-            </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                fullWidth
-                label="Check-out Time"
-                type="time"
-                InputLabelProps={{ shrink: true }}
-                value={checkOut}
-                onChange={(e) => setCheckOut(e.target.value)}
                 InputProps={{ style: { backgroundColor: 'white' } }}
                 required
               />

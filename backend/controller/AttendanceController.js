@@ -3,11 +3,11 @@ const path = require('path');
 const fs = require('fs');
 
 const createAttendance = async (req, res) => {
-    const { date, checkIn, checkOut, userId } = req.body;
+    const { date, checkIn, userId } = req.body;
     const photo = req.file ? req.file.buffer : null; 
 
     try {
-        const newAttendance = await Attendance.create({ date, checkIn, checkOut, photo, userId });
+        const newAttendance = await Attendance.create({ date, checkIn, photo, userId });
         res.status(201).json(newAttendance);
     } catch (error) {
         console.error('Error creating attendance record:', error);
@@ -19,7 +19,7 @@ const getAttendanceByUser = async (req, res) => {
     const { userId } = req.query;
 
     try {
-        const attendanceRecords = await Attendance.findAll({ where: { userId } });
+        const attendanceRecords = await Attendance.findAll({ where: { userId }, order: [['createdAt', 'DESC']], });
 
         const recordsWithBase64 = attendanceRecords.map(record => ({
             ...record.toJSON(),
@@ -36,10 +36,10 @@ const getAttendanceByUser = async (req, res) => {
 
 const updateAttendance = async (req, res) => {
     const { id } = req.params;
-    const { date, checkIn, checkOut, photo } = req.body;
+    const {checkOut} = req.body;
 
     try {
-        const [updated] = await Attendance.update({ date, checkIn, checkOut, photo }, { where: { id } });
+        const [updated] = await Attendance.update({checkOut}, { where: { id } });
         if (updated) {
             res.status(200).json({ msg: 'Attendance record updated' });
         } else {

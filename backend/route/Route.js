@@ -16,7 +16,7 @@ router.put('/users/:id', updateUser);
 // attendance data api
 router.post('/attendance', upload.single('photo'), createAttendance);
 router.get('/getAttendance', getAttendanceByUser);
-router.put('/attendance/:id', updateAttendance);
-router.delete('/attendance/:id', deleteAttendance);
+router.put('/attendance:id', updateAttendance);
+router.delete('/attendance:id', deleteAttendance);
 
 module.exports = router
