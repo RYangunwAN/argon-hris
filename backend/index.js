@@ -6,6 +6,7 @@ const db = require('./config/Database.js');
 const Users = require('./model/UserModel.js');
 const Attendances = require('./model/AttendanceModel.js');
 const router = require('./route/Route.js')
+const bcrypt = require('bcryptjs');
  
 const app = express();
 const port = process.env.PORT || 5000;
@@ -45,12 +46,14 @@ const checkAndCreateAdmin = async () => {
   try {
       const adminEmail = 'admin@example.com';
       const existingAdmin = await Users.findOne({ where: { email: adminEmail } });
+      const salt = await bcrypt.genSalt(10); // Generate a salt with 10 rounds
+      const hashedPassword = await bcrypt.hash('admin1234', salt);
 
       if (!existingAdmin) {
           await Users.create({
               name: 'Admin',
               email: adminEmail,
-              password: 'admin1234', 
+              password: hashedPassword, 
               role: 'admin'
           });
           console.log('Admin user created.');
@@ -58,7 +61,7 @@ const checkAndCreateAdmin = async () => {
           console.log('Admin user already exists.');
       }
   } catch (error) {
-      console.error('Error checking/creating admin user:', error.message);
+      console.error('Error creating admin user:', error.message);
   }
 };
 

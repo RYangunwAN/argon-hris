@@ -1,5 +1,6 @@
 const Users = require('../model/UserModel.js');
 const { generateSessionId } = require('../service/LoginService.js')
+const bcrypt = require('bcryptjs');
 
 const getUser = async(req, res) => {
     try {
@@ -13,7 +14,7 @@ const getUser = async(req, res) => {
 const registerUser = async(req, res) => {
     const { name, email, password, confirmPassword }  = req.body;
     if(password !== confirmPassword) {
-        return res.status(400).json({msg: "Password is not identical"});
+        return res.status(400).json({ msg: "Passwords do not match" });
     }
 
     try {
@@ -23,14 +24,19 @@ const registerUser = async(req, res) => {
             return res.status(400).json({ msg: "Email already in use" });
         }
 
+        const salt = await bcrypt.genSalt(10);
+        const hashedPassword = await bcrypt.hash(password, salt);
+
         await Users.create({
             name: name,
             email: email,
-            password: password,
+            password: hashedPassword,
         });
-        res.json({msg: "Register successful"})
+
+        res.json({ msg: "Registration successful" });
     } catch (error) {
         console.log(error);
+        res.status(500).json({ msg: "Server error" });
     }
 }
 
@@ -44,7 +50,8 @@ const loginUser = async (req, res) => {
             return res.status(400).json({ msg: 'Email Not Found' });
         }
 
-        if (user.password !== password) {
+        const validPassword = await bcrypt.compare(password, user.password);
+        if (!validPassword) {
             return res.status(400).json({ msg: 'Wrong Password' });
         }
 
